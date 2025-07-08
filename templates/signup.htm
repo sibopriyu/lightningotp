@@ -56,27 +56,26 @@
       color: #3d5afe;
       font-weight: 500;
     }
-    .telegram-btn {
+    .help-section {
       display: flex;
       align-items: center;
-      justify-content: center;
-      background-color: #229ED9;
+      justify-content: space-between;
+      margin-top: 15px;
+    }
+    .help-section span {
+      color: #333;
+      font-size: 14px;
+    }
+    .telegram-button {
+      background: #0088cc;
       color: white;
-      border: none;
-      border-radius: 8px;
       padding: 10px 20px;
-      margin-top: 10px;
-      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
       cursor: pointer;
       text-decoration: none;
-      transition: background 0.3s;
-    }
-    .telegram-btn:hover {
-      background-color: #1b8ec2;
-    }
-    .telegram-btn img {
-      height: 20px;
-      margin-right: 10px;
+      display: inline-block;
     }
   </style>
 </head>
@@ -88,20 +87,17 @@
       <input type="text" name="name" placeholder="Full Name" required />
       <input type="text" name="username" placeholder="Username" required />
       <input type="password" name="password" placeholder="Password" required />
-
-      <!-- ✅ reCAPTCHA v2 Box -->
       <div class="g-recaptcha" data-sitekey="6Lek2HArAAAAAD7T0GHx2VbpXCFfbJUi3a8Twtx1"></div>
-
-      <button type="submit">Sign Up</button>
+      <button type="submit">Create Account</button>
     </form>
 
     <div class="bottom-links">
       <p>Already have an account? <a href="/login">Login</a></p>
-      <p style="margin: 10px 0;">Need Help?</p>
-      <a href="https://t.me/LightningOTP1" target="_blank" class="telegram-btn">
-        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram" />
-        Contact on Telegram
-      </a>
+    </div>
+
+    <div class="help-section">
+      <span>Need Help?</span>
+      <a class="telegram-button" href="https://t.me/LightningOTP1" target="_blank">Telegram</a>
     </div>
   </div>
 
