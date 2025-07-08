@@ -21,6 +21,14 @@ def signup():
 def dashboard():
     return render_template("dashboard.html")
 
+@app.route("/register", methods=["POST"])
+def register():
+    name = request.form.get("name")
+    username = request.form.get("username")
+    password = request.form.get("password")
+    print(f"User Registered: {name}, {username}, {password}")
+    return "Registration successful!"
+
 @app.route("/create_order", methods=["POST"])
 def create_order():
     data = request.json
