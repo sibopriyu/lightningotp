@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, jsonify, render_template
 import razorpay
 
 app = Flask(__name__)
@@ -21,20 +21,6 @@ def signup():
 def dashboard():
     return render_template("dashboard.html")
 
-@app.route("/register", methods=["POST"])
-def register():
-    name = request.form.get("name")
-    username = request.form.get("username")
-    password = request.form.get("password")
-    
-    if not name or not username or not password:
-        return "Missing fields", 400
-    
-    # (Later) save to database here
-    print(f"New user: {name}, {username}")
-    
-    return render_template("dashboard.html")
-
 @app.route("/create_order", methods=["POST"])
 def create_order():
     data = request.json
@@ -44,7 +30,18 @@ def create_order():
         "currency": "INR",
         "payment_capture": "1"
     })
-    return payment
+    return jsonify(payment)
+
+@app.route("/register", methods=["POST"])
+def register():
+    name = request.form.get("name")
+    username = request.form.get("username")
+    password = request.form.get("password")
+
+    if not name or not username or not password:
+        return "All fields are required", 400
+
+    return f"Account created for {username}"
 
 if __name__ == "__main__":
     import os
