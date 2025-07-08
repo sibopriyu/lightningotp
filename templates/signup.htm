@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up - LIGHTNING OTP</title>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f6f8fa;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .signup-box {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #3d5afe;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      background: #3d5afe;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .bottom-links {
+      margin-top: 15px;
+      text-align: center;
+    }
+    .bottom-links a {
+      text-decoration: none;
+      color: #3d5afe;
+      font-weight: 500;
+    }
+    .telegram-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #229ED9;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      margin-top: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .telegram-btn:hover {
+      background-color: #1b8ec2;
+    }
+    .telegram-btn img {
+      height: 20px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="signup-box">
+    <h2>Create Account</h2>
+    <form action="/register" method="POST">
+      <input type="text" name="name" placeholder="Full Name" required />
+      <input type="text" name="username" placeholder="Username" required />
+      <input type="password" name="password" placeholder="Password" required />
+
+      <!-- ✅ reCAPTCHA v2 Box -->
+      <div class="g-recaptcha" data-sitekey="6Lek2HArAAAAAD7T0GHx2VbpXCFfbJUi3a8Twtx1"></div>
+
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <div class="bottom-links">
+      <p>Already have an account? <a href="/login">Login</a></p>
+      <p style="margin: 10px 0;">Need Help?</p>
+      <a href="https://t.me/LightningOTP1" target="_blank" class="telegram-btn">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram" />
+        Contact on Telegram
+      </a>
+    </div>
+  </div>
+
+</body>
+</html>
