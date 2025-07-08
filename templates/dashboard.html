@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - LIGHTNING OTP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #f6f8fa;
+      --text: #000;
+      --card-bg: #fff;
+      --primary: #3d5afe;
+      --gradient: linear-gradient(135deg, #6190e8, #a7bfe8);
+      --shadow: rgba(0, 0, 0, 0.05);
+    }
+    body.dark {
+      --bg: #121212;
+      --text: #eee;
+      --card-bg: #1e1e1e;
+      --primary: #90caf9;
+      --gradient: linear-gradient(135deg, #283593, #1e88e5);
+      --shadow: rgba(255, 255, 255, 0.05);
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      background-color: var(--card-bg);
+      border-bottom: 1px solid #ddd;
+      position: relative;
+    }
+    .menu-icon {
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .header-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .profile-icon {
+      font-size: 22px;
+      cursor: pointer;
+      position: relative;
+    }
+    .toggle-darkmode {
+      font-size: 18px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    .profile-dropdown {
+      display: none;
+      position: absolute;
+      top: 40px;
+      right: 0;
+      background: var(--card-bg);
+      box-shadow: 0 2px 10px var(--shadow);
+      border-radius: 8px;
+      padding: 12px;
+      z-index: 100;
+      width: 200px;
+    }
+    .profile-dropdown.active {
+      display: block;
+    }
+    .profile-dropdown p {
+      margin: 6px 0;
+      font-size: 14px;
+    }
+    .profile-dropdown button {
+      margin-top: 10px;
+      padding: 8px;
+      width: 100%;
+      border: none;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .menu-dropdown {
+      display: none;
+      position: absolute;
+      top: 50px;
+      left: 15px;
+      background: var(--card-bg);
+      box-shadow: 0 2px 10px var(--shadow);
+      border-radius: 8px;
+      padding: 12px;
+      z-index: 100;
+      width: 200px;
+    }
+    .menu-dropdown.active {
+      display: block;
+    }
+    .menu-dropdown div {
+      padding: 12px;
+      font-size: 17px;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+    }
+    .menu-dropdown div:hover {
+      background-color: #eee;
+    }
+    body.dark .menu-dropdown div:hover {
+      background-color: #333;
+    }
+    .content-section {
+      display: none;
+      padding: 20px;
+    }
+    .active-section {
+      display: block;
+    }
+    .balance-card {
+      padding: 25px;
+      background: var(--gradient);
+      border-radius: 16px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .balance-card h2 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .balance-card p {
+      font-size: 28px;
+      font-weight: 600;
+      margin: 0;
+    }
+    .actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    .actions button {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .actions .plus {
+      background-color: #fff;
+      color: #333;
+    }
+    .actions .buy {
+      background-color: #3d5afe;
+      color: white;
+    }
+    .summary-box {
+      background-color: var(--card-bg);
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 2px 5px var(--shadow);
+    }
+    .summary-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      border-top: 1px solid #eee;
+    }
+    .summary-item:first-child {
+      border-top: none;
+    }
+    .icon-text {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    <h3 class="header-title">LIGHTNING OTP</h3>
+    <div style="display: flex; align-items: center;">
+      <div class="toggle-darkmode" onclick="toggleDarkMode()">🌙</div>
+      <div class="profile-icon" onclick="toggleProfile()">👤
+        <div class="profile-dropdown" id="profileDropdown">
+          <p><strong>User:</strong> LightningOTP1</p>
+          <p><strong>UPI:</strong> lightning@ybl</p>
+          <button onclick="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-dropdown" id="menuDropdown">
+      <div onclick="showSection('dashboard')">🏠 Dashboard</div>
+      <div onclick="showSection('addBalance')">💰 Add Balance</div>
+      <div onclick="showSection('buyOtp')">📲 Buy OTP</div>
+      <div onclick="showSection('orders')">📦 Orders</div>
+      <div onclick="showSection('paymentHistory')">📜 Payment History</div>
+      <div onclick="window.open('https://t.me/LightningOTP1', '_blank')">🆘 Help & Support</div>
+      <div onclick="showSection('settings')">⚙️ Settings</div>
+    </div>
+  </header>
+
+  <!-- Dashboard Section -->
+  <section id="dashboard" class="content-section active-section">
+    <div class="balance-card">
+      <h2>Available Balance</h2>
+      <p>₹0.00</p>
+      <div class="actions">
+        <button class="plus">+</button>
+        <button class="buy">Buy Number</button>
+      </div>
+    </div>
+    <div class="summary-box">
+      <div class="summary-title">Account Summary</div>
+      <div class="summary-item">
+        <div class="icon-text">💳 Total Recharge</div>
+        <div>₹0.00</div>
+      </div>
+      <div class="summary-item">
+        <div class="icon-text">🛒 Total Purchases</div>
+        <div>0</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Add Balance -->
+  <section id="addBalance" class="content-section">
+    <h2>Add Balance</h2>
+    <p>Use UPI or crypto to add credits instantly.</p>
+  </section>
+
+  <!-- Buy OTP -->
+  <section id="buyOtp" class="content-section">
+    <h2>Buy OTP</h2>
+    <p>Select site and buy temporary number.</p>
+  </section>
+
+  <!-- Orders -->
+  <section id="orders" class="content-section">
+    <h2>My Orders</h2>
+    <p>View your OTP order history here.</p>
+  </section>
+
+  <!-- Payment History -->
+  <section id="paymentHistory" class="content-section">
+    <h2>Payment History</h2>
+    <p>No payments made yet.</p>
+  </section>
+
+  <!-- Settings -->
+  <section id="settings" class="content-section">
+    <h2>Settings</h2>
+    <p>Update your profile, UPI, or preferences.</p>
+    <div style="margin-top: 20px;">
+      <p><strong>🔗 Referral Link:</strong> <br><code>https://lightningotp.com/ref?user=LightningOTP1</code></p>
+      <p><strong>⚙️ API Key:</strong> <br><code>https://lightningotp.com/api?key=YOUR_API_KEY</code></p>
+    </div>
+  </section>
+
+  <script>
+    function toggleProfile() {
+      document.getElementById("profileDropdown").classList.toggle("active");
+    }
+    function toggleMenu() {
+      document.getElementById("menuDropdown").classList.toggle("active");
+    }
+    function logout() {
+      alert("You have been logged out.");
+    }
+    function showSection(sectionId) {
+      const sections = document.querySelectorAll(".content-section");
+      sections.forEach(sec => sec.classList.remove("active-section"));
+      document.getElementById(sectionId).classList.add("active-section");
+      toggleMenu();
+    }
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+    }
+  </script>
+
+</body>
+</html>
