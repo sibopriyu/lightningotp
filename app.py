@@ -1,15 +1,25 @@
-
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import razorpay
 
 app = Flask(__name__)
 
-# Razorpay Live Keys
 razorpay_client = razorpay.Client(auth=("rzp_live_FvXcnskY9fqeEK", "JgfaXbqSvDoNrASgPm5mPXDz"))
 
 @app.route("/")
 def home():
-    return "LIGHTNING OTP Backend is Running!"
+    return render_template("index.html")
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+@app.route("/signup")
+def signup():
+    return render_template("signup.html")
+
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
 
 @app.route("/create_order", methods=["POST"])
 def create_order():
