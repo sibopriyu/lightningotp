@@ -41,7 +41,7 @@ def register():
     if not name or not username or not password:
         return "All fields are required", 400
 
-    return f"Account created for {username}"
+    return render_template("dashboard.html")
 
 if __name__ == "__main__":
     import os
